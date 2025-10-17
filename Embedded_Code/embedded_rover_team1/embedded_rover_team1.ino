@@ -10,12 +10,23 @@
 #include <Servo.h>
 
 Servo servo_25kg_turret_PWM_S1;
+Servo servo_55g_wrist_PWM_S2;
 
 void setup () {
   Serial.begin(9600);
-  Serial.print("Testing the Servo \n")
+  Serial.print("Testing the Servos \n");
 
-  servo_25kg_turret_PWM_S1.attach()
+  //Servo 1
+  // servo_25kg_turret_PWM_S1.attach(12);
+
+  // Serial.print(" - Moving Servo 2 into Central Position \n");
+  // servo_25kg_turret_PWM_S1.writeMicroseconds(1500);
+
+  //Servo 2 
+  servo_55g_wrist_PWM_S2.attach(13);
+
+  Serial.print(" - Moving Servo 2 into Central Position \n");
+  servo_55g_wrist_PWM_S2.writeMicroseconds(1500);
 
 }
 
