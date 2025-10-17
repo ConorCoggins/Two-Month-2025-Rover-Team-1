@@ -34,9 +34,9 @@ void loop () {
 
 
   servo_55g_wrist_PWM_S2.write(100);
-  delay(200);
+  delay(2000);
   servo_55g_wrist_PWM_S2.write(0);
-  delay(200);
+  delay(2000);
   // servo_55g_wrist_PWM_S2.write(2);
   // delay(200);
   // servo_55g_wrist_PWM_S2.write(3);
