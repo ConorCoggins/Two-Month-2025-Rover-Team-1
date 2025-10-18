@@ -13,12 +13,20 @@ Servo servo_25kg_turret_PWM_S1;
 Servo servo_55g_wrist_PWM_S2;
 Servo servo_45kg_claw_PWM_S3;
 
+#define BMP_SCK 5
+#define BMP_SDA 4
+
+#define SEALEVELPRESSURE_HPA (1013.25)
+
 /* Set the delay between fresh samples */
 uint16_t BNO055_SAMPLERATE_DELAY_MS = 100;
 
 // Check I2C device address and correct line below (by default address is 0x29 or 0x28)
 //                                   id, address
 Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28, &Wire);
+const int chipSelect = 17;
+File dataLog;
+Adafruit_BMP3xx bmp;
 
 void setup () {
   Serial.begin(9600);
@@ -56,8 +64,23 @@ void setup () {
     while (1);
   }
 
-  delay(1000);
-  ////
+  //BMP Code Begin
+  Serial.println("Adafruit BMP388 / BMP390");
+  if (!bmp.begin_I2C()) {
+    Serial.println("Could not find a vaild BMP3 Sensor, Check Wiring.");
+    while (1);
+  }
+  //BMP Code End
+
+  //SD Card Begin
+  while (!SD.begin(chipSelect)) {
+    Serial.println("Failed to initialize SD Card.");
+  }
+  Serial.println("SD Card itilialized successfully.");
+  //SD Card End
+
+
+  delay(2000);
 }
 
 void loop () {
@@ -78,12 +101,7 @@ void loop () {
   servo_45kg_claw_PWM_S3.write(0);
   delay(2000);
   
-  //SDA_Sensor
-  
-  
-  //SCL_Sensor
-  
-
+  //BNO Data Begin
   ////read_all_data example copy paste
   //could add VECTOR_ACCELEROMETER, VECTOR_MAGNETOMETER,VECTOR_GRAVITY...
   sensors_event_t orientationData , angVelocityData , linearAccelData, magnetometerData, accelerometerData, gravityData;
@@ -177,4 +195,41 @@ void printEvent(sensors_event_t* event) {
   Serial.print(y);
   Serial.print(" |\tz= ");
   Serial.println(z);
+
+  //BNO Data End
+
+  //BMP Data Begin
+  
+  if (! bmp.performReading()) {
+   Serial.println("Failed to perform reading :(");
+   return;
+ }
+ Serial.print("Temperature = ");
+ Serial.print(bmp.temperature);
+  Serial.println(" *C");
+
+ Serial.print("Pressure = ");
+ Serial.print(bmp.pressure / 100.0);
+ Serial.println(" hPa");
+
+ Serial.print("Approx. Altitude = ");
+ Serial.print(bmp.readAltitude(SEALEVELPRESSURE_HPA));
+ Serial.println(" m");
+
+ Serial.println();
+
+ // BMP Data End
+
+  //SD Card Begin
+  File dataLog = SD.open("dataLog.txt", FILE_WRITE);
+
+  if (dataLog) {
+    dataLog.println(); // Add sensor data variables to print to SD card
+    dataLog.close();// Dont add anything here
+    Serial.println(); // Add sensor data variables you want to print to serial monitor
+  } else{
+    Serial.println("Failed to open dataLog.txt");
+  }
+
+  delay(2000);
 }
