@@ -26,14 +26,13 @@
 
 #define BMP_SCK 5
 #define BMP_SDA 4
-#define BNO_SCK 
-#define BNO_SDA 
+#define BNO_SCK 5
+#define BNO_SDA 4
 
 
 #define SEALEVELPRESSURE_HPA (1013.25)
 
 Adafruit_BMP3XX bmp;
-Adafruit_BNO055 bno = Adafruit_BNO055(55);
 
 
 void setup() {
@@ -55,12 +54,7 @@ void setup() {
  bmp.setOutputDataRate(BMP3_ODR_50_HZ);
 
     /* Initialise the sensor */
-  if(!bno.begin())
-  {
-    /* There was a problem detecting the BNO055 ... check your connections */
-    Serial.print("Ooops, no BNO055 detected ... Check your wiring or I2C ADDR!");
-    while(1);
-  }
+  
   
   delay(1000);
     
