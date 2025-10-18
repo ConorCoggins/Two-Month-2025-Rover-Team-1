@@ -13,6 +13,7 @@ Servo servo_25kg_turret_PWM_S1;
 Servo servo_55g_wrist_PWM_S2;
 Servo servo_45kg_claw_PWM_S3;
 
+
 /* Set the delay between fresh samples */
 uint16_t BNO055_SAMPLERATE_DELAY_MS = 100;
 
@@ -22,6 +23,7 @@ Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28, &Wire);
 
 void setup () {
   Serial.begin(9600);
+  while (!Serial);
   Serial.print("Testing the Servos \n");
 
   //Servo 1
@@ -44,7 +46,7 @@ void setup () {
 
 
   ////read_all_data example copy paste
-  while (!Serial) delay(10);  // wait for serial port to open!
+  //BNO Code Begin
 
   Serial.println("Orientation Sensor Test"); Serial.println("");
 
@@ -57,6 +59,12 @@ void setup () {
   }
 
   delay(1000);
+
+  //SD Card Begin
+  while (!SD.begin(chipSelect)) {
+    Serial.println("Failed to initialize SD Card.");
+  }
+  //SD Card End
   ////
 }
 
@@ -84,7 +92,7 @@ void loop () {
   //SCL_Sensor
   
 
-  ////read_all_data example copy paste
+  ////read_all_data example copy paste Begin
   //could add VECTOR_ACCELEROMETER, VECTOR_MAGNETOMETER,VECTOR_GRAVITY...
   sensors_event_t orientationData , angVelocityData , linearAccelData, magnetometerData, accelerometerData, gravityData;
   bno.getEvent(&orientationData, Adafruit_BNO055::VECTOR_EULER);
@@ -177,4 +185,12 @@ void printEvent(sensors_event_t* event) {
   Serial.print(y);
   Serial.print(" |\tz= ");
   Serial.println(z);
+  // BNO Data end
+
+  //BMP Data Begin
+  //BMP Data End
+
+
+  //SD Card Begin
+  //SD Card END
 }
