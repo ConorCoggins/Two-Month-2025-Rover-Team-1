@@ -6,12 +6,19 @@
 #include <Adafruit_BNO055.h>
 #include <utility/imumaths.h>
 #include <SD.h>
-#include <Stepper.h>
 #include <Servo.h>
+#include <AlashMotorControlLite.h>
 
 Servo servo_25kg_turret_PWM_S1;
 Servo servo_55g_wrist_PWM_S2;
 Servo servo_45kg_claw_PWM_S3;
+
+/* Set the delay between fresh samples */
+uint16_t BNO055_SAMPLERATE_DELAY_MS = 100;
+
+// Check I2C device address and correct line below (by default address is 0x29 or 0x28)
+//                                   id, address
+Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28, &Wire);
 
 void setup () {
   Serial.begin(9600);
@@ -36,7 +43,7 @@ void setup () {
   servo_45kg_claw_PWM_S3.writeMicroseconds(1500);
 
 
-  //read_all_data example copy paste
+  ////read_all_data example copy paste
   while (!Serial) delay(10);  // wait for serial port to open!
 
   Serial.println("Orientation Sensor Test"); Serial.println("");
@@ -50,7 +57,7 @@ void setup () {
   }
 
   delay(1000);
-
+  ////
 }
 
 void loop () {
@@ -76,6 +83,8 @@ void loop () {
   
   //SCL_Sensor
   
+
+  ////read_all_data example copy paste
   //could add VECTOR_ACCELEROMETER, VECTOR_MAGNETOMETER,VECTOR_GRAVITY...
   sensors_event_t orientationData , angVelocityData , linearAccelData, magnetometerData, accelerometerData, gravityData;
   bno.getEvent(&orientationData, Adafruit_BNO055::VECTOR_EULER);
@@ -111,6 +120,7 @@ void loop () {
 
   Serial.println("--");
   delay(BNO055_SAMPLERATE_DELAY_MS);
+  ////
 }
 
 void printEvent(sensors_event_t* event) {
