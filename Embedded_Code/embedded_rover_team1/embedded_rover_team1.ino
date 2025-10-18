@@ -40,9 +40,19 @@ void setup () {
 void loop () {
   
 
+  servo_25kg_turret_PWM_S1.write(100);
+  delay(2000);
+  servo_25kg_turret_PWM_S1.write(0);
+  delay(2000);
+
   servo_55g_wrist_PWM_S2.write(100);
   delay(2000);
   servo_55g_wrist_PWM_S2.write(0);
+  delay(2000);
+
+  servo_45kg_claw_PWM_S3.write(100);
+  delay(2000);
+  servo_45kg_claw_PWM_S3.write(0);
   delay(2000);
   
   //SDA_Sensor
