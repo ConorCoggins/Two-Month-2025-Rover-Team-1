@@ -124,7 +124,10 @@ void loop () {
   Serial.print(F("temperature: "));
   Serial.println(boardTemp);
 
-  uint8_t system, gyro, accel, mag = 0;
+  uint8_t system = 0;
+  uint8_t gyro = 0;
+  uint8_t accel = 0;
+  uint8_t mag = 0;
   bno.getCalibration(&system, &gyro, &accel, &mag);
   Serial.println();
   Serial.print("Calibration: Sys=");
