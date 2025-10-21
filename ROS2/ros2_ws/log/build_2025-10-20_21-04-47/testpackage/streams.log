@@ -1,0 +1,34 @@
+[0.907s] Invoking command in '/home/user/ros2_ws/src/testpackage': PYTHONPATH=/home/user/ros2_ws/build/testpackage/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/user/ros2_ws/install/testpackage/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/testpackage build --build-base /home/user/ros2_ws/build/testpackage/build install --record /home/user/ros2_ws/build/testpackage/install.log --single-version-externally-managed install_data
+[1.190s] running egg_info
+[1.193s] creating ../../build/testpackage/testpackage.egg-info
+[1.194s] writing ../../build/testpackage/testpackage.egg-info/PKG-INFO
+[1.194s] writing dependency_links to ../../build/testpackage/testpackage.egg-info/dependency_links.txt
+[1.194s] writing entry points to ../../build/testpackage/testpackage.egg-info/entry_points.txt
+[1.194s] writing requirements to ../../build/testpackage/testpackage.egg-info/requires.txt
+[1.194s] writing top-level names to ../../build/testpackage/testpackage.egg-info/top_level.txt
+[1.195s] writing manifest file '../../build/testpackage/testpackage.egg-info/SOURCES.txt'
+[1.195s] reading manifest file '../../build/testpackage/testpackage.egg-info/SOURCES.txt'
+[1.195s] adding license file 'LICENSE'
+[1.197s] writing manifest file '../../build/testpackage/testpackage.egg-info/SOURCES.txt'
+[1.197s] running build
+[1.197s] running build_py
+[1.197s] creating /home/user/ros2_ws/build/testpackage/build
+[1.197s] creating /home/user/ros2_ws/build/testpackage/build/lib
+[1.198s] creating /home/user/ros2_ws/build/testpackage/build/lib/testpackage
+[1.200s] copying testpackage/__init__.py -> /home/user/ros2_ws/build/testpackage/build/lib/testpackage
+[1.201s] running install
+[1.201s] running install_lib
+[1.201s] creating /home/user/ros2_ws/install/testpackage/lib/python3.10/site-packages/testpackage
+[1.201s] copying /home/user/ros2_ws/build/testpackage/build/lib/testpackage/__init__.py -> /home/user/ros2_ws/install/testpackage/lib/python3.10/site-packages/testpackage
+[1.201s] byte-compiling /home/user/ros2_ws/install/testpackage/lib/python3.10/site-packages/testpackage/__init__.py to __init__.cpython-310.pyc
+[1.201s] running install_data
+[1.202s] creating /home/user/ros2_ws/install/testpackage/share/ament_index
+[1.202s] creating /home/user/ros2_ws/install/testpackage/share/ament_index/resource_index
+[1.202s] creating /home/user/ros2_ws/install/testpackage/share/ament_index/resource_index/packages
+[1.202s] copying resource/testpackage -> /home/user/ros2_ws/install/testpackage/share/ament_index/resource_index/packages
+[1.202s] copying package.xml -> /home/user/ros2_ws/install/testpackage/share/testpackage
+[1.202s] running install_egg_info
+[1.203s] Copying ../../build/testpackage/testpackage.egg-info to /home/user/ros2_ws/install/testpackage/lib/python3.10/site-packages/testpackage-0.0.0-py3.10.egg-info
+[1.205s] running install_scripts
+[1.236s] writing list of installed files to '/home/user/ros2_ws/build/testpackage/install.log'
+[1.282s] Invoked command in '/home/user/ros2_ws/src/testpackage' returned '0': PYTHONPATH=/home/user/ros2_ws/build/testpackage/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/user/ros2_ws/install/testpackage/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/testpackage build --build-base /home/user/ros2_ws/build/testpackage/build install --record /home/user/ros2_ws/build/testpackage/install.log --single-version-externally-managed install_data
