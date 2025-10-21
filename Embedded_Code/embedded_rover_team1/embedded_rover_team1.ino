@@ -7,11 +7,14 @@
 #include <utility/imumaths.h>
 #include <SD.h>
 #include <Servo.h>
-#include <AlashMotorControlLite.h>
+
+Adafruit_BMP3XX bmp;
 
 Servo servo_25kg_turret_PWM_S1;
 Servo servo_55g_wrist_PWM_S2;
 Servo servo_45kg_claw_PWM_S3;
+
+
 
 #define BMP_SCK 5
 #define BMP_SDA 4
@@ -26,7 +29,11 @@ uint16_t BNO055_SAMPLERATE_DELAY_MS = 100;
 Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28, &Wire);
 const int chipSelect = 17;
 File dataLog;
-Adafruit_BMP3xx bmp;
+
+const int m1_AIN1 = 24;
+const int m1_AIN2 = 25;
+const int m2_AIN1 = 26;
+const int m2_AIN2 = 27;
 
 void setup () {
   Serial.begin(9600);
@@ -102,7 +109,7 @@ void loop () {
   delay(2000);
   
   //BNO Data Begin
-  ////read_all_data example copy paste
+  
   //could add VECTOR_ACCELEROMETER, VECTOR_MAGNETOMETER,VECTOR_GRAVITY...
   sensors_event_t orientationData , angVelocityData , linearAccelData, magnetometerData, accelerometerData, gravityData;
   bno.getEvent(&orientationData, Adafruit_BNO055::VECTOR_EULER);
@@ -141,7 +148,15 @@ void loop () {
 
   Serial.println("--");
   delay(BNO055_SAMPLERATE_DELAY_MS);
-  ////
+  
+  digitalWrite(m1_AIN1, HIGH);
+  digitalWrite(m1_AIN2, LOW);
+
+  delay(2500);
+
+  digitalWrite(m1_AIN2, HIGH);
+  digitalWrite(m1_AIN1, LOW);
+  
 }
 
 void printEvent(sensors_event_t* event) {
