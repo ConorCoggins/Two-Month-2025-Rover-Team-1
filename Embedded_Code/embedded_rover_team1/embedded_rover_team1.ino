@@ -14,16 +14,12 @@ Servo servo_25kg_turret_PWM_S1;
 Servo servo_55g_wrist_PWM_S2;
 Servo servo_45kg_claw_PWM_S3;
 
-
-<<<<<<< HEAD
-
 #define BMP_SCK 5
 #define BMP_SDA 4
 
 #define SEALEVELPRESSURE_HPA (1013.25)
 
-=======
->>>>>>> cb8163542226cdceea25f7f926bc954117559f0d
+
 /* Set the delay between fresh samples */
 uint16_t BNO055_SAMPLERATE_DELAY_MS = 100;
 
@@ -75,7 +71,7 @@ void setup () {
     while (1);
   }
 
-<<<<<<< HEAD
+
   //BMP Code Begin
   Serial.println("Adafruit BMP388 / BMP390");
   if (!bmp.begin_I2C()) {
@@ -83,24 +79,24 @@ void setup () {
     while (1);
   }
   //BMP Code End
-=======
+
   delay(1000);
->>>>>>> cb8163542226cdceea25f7f926bc954117559f0d
+
 
   //SD Card Begin
   while (!SD.begin(chipSelect)) {
     Serial.println("Failed to initialize SD Card.");
   }
-<<<<<<< HEAD
+
   Serial.println("SD Card itilialized successfully.");
   //SD Card End
 
 
   delay(2000);
-=======
+
   //SD Card End
   ////
->>>>>>> cb8163542226cdceea25f7f926bc954117559f0d
+
 }
 
 void loop () {
@@ -123,14 +119,13 @@ void loop () {
   
   //BNO Data Begin
   
-<<<<<<< HEAD
-=======
+
   
   //SCL_Sensor
   
 
   ////read_all_data example copy paste Begin
->>>>>>> cb8163542226cdceea25f7f926bc954117559f0d
+
   //could add VECTOR_ACCELEROMETER, VECTOR_MAGNETOMETER,VECTOR_GRAVITY...
   sensors_event_t orientationData , angVelocityData , linearAccelData, magnetometerData, accelerometerData, gravityData;
   bno.getEvent(&orientationData, Adafruit_BNO055::VECTOR_EULER);
@@ -234,7 +229,7 @@ void printEvent(sensors_event_t* event) {
   Serial.print(y);
   Serial.print(" |\tz= ");
   Serial.println(z);
-<<<<<<< HEAD
+
 
   //BNO Data End
 
@@ -272,7 +267,7 @@ void printEvent(sensors_event_t* event) {
   }
 
   delay(2000);
-=======
+
   // BNO Data end
 
   //BMP Data Begin
@@ -281,5 +276,5 @@ void printEvent(sensors_event_t* event) {
 
   //SD Card Begin
   //SD Card END
->>>>>>> cb8163542226cdceea25f7f926bc954117559f0d
+
 }
