@@ -1,5 +1,0 @@
-*********************IMPORTANT NOTES*********************
-
-- Current data is bogus, generated randomly from a function as a placeholder.
-- Not yet controllable via a controller, will work on that soon
-- "Incoming information" is currently put into terminal, not a separate window. Will add this later.
