@@ -1,9 +1,9 @@
 from setuptools import find_packages, setup q
 
-package_name = 'my_package'
+package_name = 'rospackage'
 
 setup(
-    name=my_package,
+    name=rospackage,
     version='0.0.0',
     packages=find_packages(exclude=['test']),
     data_files=[
@@ -15,7 +15,7 @@ setup(
     zip_safe=True,
     maintainer='user',
     maintainer_email='conorwcoggins@protonmail.com',
-    description='Test package while learning ROS',
+    description='Package that includes 4 nodes: a listener and talker for each the pico/libre and the base station',
     license='Apache License 2.0',
     extras_require={
         'test': [
@@ -24,7 +24,11 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            'my_node = my_package.my_node:main'
+            'my_node = rospackage.my_node:main'
+            'basestationlistener = rospackage.basestationlistner:main'
+            'basestationtalker = rospackage.basestationtalker:main'
+            'picolistener = rospackage.picolistener:main'
+            'picotalker = rospackage.picotalker:main'
         ],
     },
 )
