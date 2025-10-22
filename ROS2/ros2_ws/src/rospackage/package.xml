@@ -1,10 +1,11 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>my_package</name>
+  <name>rospackage</name>
   <version>0.0.0</version>
-  <description>Test package while learning ROS</description>
+  <description>Package that includes 4 nodes: a listener and talker for each the pico/libre and the base station</description>
   <maintainer email="conorwcoggins@protonmail.com">user</maintainer>
+  <maintainer email="aml1273@uah.edu">user</maintainer>
   <license>Apache License 2.0</license>
 
   <test_depend>ament_copyright</test_depend>
