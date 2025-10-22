@@ -73,7 +73,7 @@ void setup () {
 
 
   //BMP Code Begin
-  Serial.println("Adafruit BMP388 / BMP390");
+  Serial.println("Adafruit BMP388");
   if (!bmp.begin_I2C()) {
     Serial.println("Could not find a vaild BMP3 Sensor, Check Wiring.");
     while (1);
@@ -269,11 +269,11 @@ void printEvent(sensors_event_t* event) {
     dataLog.print(',');   
     dataLog.print(&gravityData);
     dataLog.print(',');
-    dataLog.print(&bmp.temperature);
+    dataLog.print(&bmp.readTemperature);
     dataLog.print(',');
-    dataLog.print(&bmp.temperature);
+    dataLog.print(&bmp.readPressure);
     dataLog.print(',');
-    dataLog.print(&bmp.Altitude);
+    dataLog.print(&bmp.readAltitude);
     dataLog.print(',', \n);
     dataLog.close();// Dont add anything here
     Serial.println(); // Add sensor data variables you want to print to serial monitor
