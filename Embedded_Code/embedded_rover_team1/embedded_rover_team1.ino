@@ -256,30 +256,31 @@ void printEvent(sensors_event_t* event) {
  // BMP Data End
 
   //SD Card Begin
-  File dataLog = SD.open("dataLog.txt", FILE_WRITE);
+  // File dataLog = SD.open("dataLog.txt", FILE_WRITE);
 
-  if (dataLog) {
-    dataLog.print(&orientationData); // Add sensor data variables to print to SD card
-    dataLog.print(','); 
-    dataLog.print(&angVelocityData);
-    dataLog.print(',');    
-    dataLog.print(&linearAccelData);
-    dataLog.print(',');   
-    dataLog.print(&accelerometerData);
-    dataLog.print(',');   
-    dataLog.print(&gravityData);
-    dataLog.print(',');
-    dataLog.print(&bmp.readTemperature);
-    dataLog.print(',');
-    dataLog.print(&bmp.readPressure);
-    dataLog.print(',');
-    dataLog.print(&bmp.readAltitude);
-    dataLog.print(',', \n);
-    dataLog.close();// Dont add anything here
-    Serial.println(); // Add sensor data variables you want to print to serial monitor
-  } else{
-    Serial.println("Failed to open dataLog.txt");
-  }
+  // if (dataLog) {
+  //   dataLog.print(&orientationData); // Add sensor data variables to print to SD card
+  //   dataLog.print(','); 
+  //   dataLog.print(&angVelocityData);
+  //   dataLog.print(',');    
+  //   dataLog.print(&linearAccelData);
+  //   dataLog.print(',');   
+  //   dataLog.print(&accelerometerData);
+  //   dataLog.print(',');   
+  //   dataLog.print(&gravityData);
+  //   dataLog.print(',');
+  //   dataLog.print(&bmp.readTemperature);
+  //   dataLog.print(',');
+  //   dataLog.print(&bmp.readPressure);
+  //   dataLog.print(',');
+  //   dataLog.print(&bmp.readAltitude);
+  //   dataLog.print(',');
+  //   dataLog.println();
+  //   dataLog.close();// Dont add anything here
+  //   Serial.println(); // Add sensor data variables you want to print to serial monitor
+  // } else{
+  //   Serial.println("Failed to open dataLog.txt");
+  // }
 
   delay(2000);
 
