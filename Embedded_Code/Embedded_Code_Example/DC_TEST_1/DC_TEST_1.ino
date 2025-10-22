@@ -3,7 +3,7 @@
 int STBY = 10; //standby
 
 //Motor A
-int PWMA = 20; // Speed Control
+int PWMA = 0; // Speed Control
 int AIN1 = 8; //Direction
 int AIN2 = 7; //Direction
 
