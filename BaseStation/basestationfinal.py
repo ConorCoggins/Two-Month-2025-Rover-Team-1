@@ -1,6 +1,7 @@
 import sys
 import time
 import rclpy
+import keyboard
 from rclpy.node import Node
 from std_msgs.msg import String, Float32
 from PyQt6.QtWidgets import (
@@ -105,6 +106,17 @@ class Ros2Thread(Thread):
         self.elbow2_down.clicked.connect(lambda: self.send_command("ELBOW2DOWN"))
         self.turret_left.clicked.connect(lambda: self.send_command("TURRETLEFT"))
         self.turret_right.clicked.connect(lambda: self.send_command("TURRETRIGHT"))
+
+        keyboard.add_hotkey('w', lambda: self.send_command('WRISTUP'))
+        keyboard.add_hotkey('s', lambda: self.send_command('WRISTDOWN'))
+        keyboard.add_hotkey('a', lambda: self.send_command('TURRETLEFT'))
+        keyboard.add_hotkey('d', lambda: self.send_command('TURRETRIGHT'))
+        keyboard.add_hotkey('u', lambda: self.send_command('ELBOW1UP'))
+        keyboard.add_hotkey('j', lambda: self.send_command('ELBOW1DOWN'))
+        keyboard.add_hotkey('o', lambda: self.send_command('ELBOW2UP'))
+        keyboard.add_hotkey('l', lambda: self.send_command('ELBOW2DOWN'))
+        keyboard.add_hotkey('q', lambda: self.send_command('OPENCLAW'))
+        keyboard.add_hotkey('e', lambda: self.send_command('CLOSECLAW'))
 
         # Layout
         main = QVBoxLayout()
