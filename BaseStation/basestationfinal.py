@@ -12,6 +12,14 @@ from PyQt6.QtCore import QTimer, pyqtSignal
 from threading import Thread
 import pyqtgraph as pg
 
+# Try to import and init DualSense
+ds = None
+try:
+    from pydualsense import pydualsense
+    ds = pydualsense()
+    ds.init()
+except Exception as e:
+    print(f"DualSense init failed: {e}")
 
 # Global sensor data
 temperature = 0.0  # °C
@@ -76,6 +84,20 @@ class Ros2Thread(Thread):
         node = BaseStationListenerNode(self.update_signal)
         rclpy.spin(node)
         node.destroy_node()
+
+class ControlWindow(QWidget):
+    def __init__(self, talker_node):
+        super().__init__()
+        self.node = talker_node
+        self.setWindowTitle("Robotic Arm Control (No Controller - Buttons Only)" if not ds else "Robotic Arm Control")
+        self.setGeometry(100, 100, 400, 300)
+
+class ControlWindow(QWidget):
+    def __init__(self, talker_node):
+        super().__init__()
+        self.node = talker_node
+        self.setWindowTitle("Robotic Arm Control (No Controller - Buttons Only)" if not ds else "Robotic Arm Control")
+        self.setGeometry(100, 100, 400, 300)
 
         # Buttons
         btn_style = "min-width: 120px; min-height: 30px;"
@@ -154,6 +176,56 @@ class Ros2Thread(Thread):
         main.addLayout(turret_box)
 
         self.setLayout(main)
+
+        # Controller polling
+        if ds:
+            def poll_controller():
+                state = ds.sendReport()
+                if not state:
+                    return
+
+                if state.DPadUp: self.send_command("WRISTUP")
+                if state.DPadDown: self.send_command("WRISTDOWN")
+                if state.DPadLeft: self.send_command("TURRETLEFT")
+                if state.DPadRight: self.send_command("TURRETRIGHT")
+                if state.L2 > 128: self.send_command("OPENCLAW")
+                if state.R2 > 128: self.send_command("CLOSECLAW")
+                if state.LeftStickY > 0.5: self.send_command("ELBOW1UP")
+                if state.LeftStickY < -0.5: self.send_command("ELBOW1DOWN")
+                if state.RightStickY > 0.5: self.send_command("ELBOW2UP")
+                if state.RightStickY < -0.5: self.send_command("ELBOW2DOWN")
+                if any([state.DPadUp, state.DPadDown, state.DPadLeft, state.DPadRight,
+                        state.L2 > 128, state.R2 > 128, abs(state.LeftStickY) > 0.5, abs(state.RightStickY) > 0.5]):
+                    self.trigger_feedback()
+
+            controller_timer = QTimer(self)
+            controller_timer.timeout.connect(poll_controller)
+            controller_timer.start(50)  # Poll at 20 Hz
+
+        # Controller polling
+        if ds:
+            def poll_controller():
+                state = ds.sendReport()
+                if not state:
+                    return
+
+                if state.DPadUp: self.send_command("WRISTUP")
+                if state.DPadDown: self.send_command("WRISTDOWN")
+                if state.DPadLeft: self.send_command("TURRETLEFT")
+                if state.DPadRight: self.send_command("TURRETRIGHT")
+                if state.L2 > 128: self.send_command("OPENCLAW")
+                if state.R2 > 128: self.send_command("CLOSECLAW")
+                if state.LeftStickY > 0.5: self.send_command("ELBOW1UP")
+                if state.LeftStickY < -0.5: self.send_command("ELBOW1DOWN")
+                if state.RightStickY > 0.5: self.send_command("ELBOW2UP")
+                if state.RightStickY < -0.5: self.send_command("ELBOW2DOWN")
+                if any([state.DPadUp, state.DPadDown, state.DPadLeft, state.DPadRight,
+                        state.L2 > 128, state.R2 > 128, abs(state.LeftStickY) > 0.5, abs(state.RightStickY) > 0.5]):
+                    self.trigger_feedback()
+
+            controller_timer = QTimer(self)
+            controller_timer.timeout.connect(poll_controller)
+            controller_timer.start(50)  # Poll at 20 Hz
 
     def send_command(self, command):
         try:
@@ -279,6 +351,8 @@ def main():
     talker_node = BaseStationTalkerNode()
     app = QApplication(sys.argv)
 
+    if not ds:
+        no_controller_window()
 
     plot_win = PlotWindow()
     ctrl_win = ControlWindow(talker_node)
