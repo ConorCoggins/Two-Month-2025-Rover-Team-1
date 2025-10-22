@@ -1,4 +1,8 @@
 .theia/
 build/
 install/
+<<<<<<< HEAD
 log/
+=======
+log/
+>>>>>>> 7786a77b16163111969879841c3fdb5098a763ec
