@@ -1,4 +1,4 @@
-from setuptools import find_packages, setup q
+from setuptools import find_packages, setup 
 
 package_name = 'rospackage'
 
