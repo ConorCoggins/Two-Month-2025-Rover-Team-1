@@ -2,11 +2,16 @@
 #include <Wire.h>
 #include <SPI.h>
 #include <Adafruit_Sensor.h>
-#include <Adafruit_BMP3XX.h>
-#include <Adafruit_BNO055.h>
+#include <Adafruit_BMP3XX.h>  //BMP gives us
+#include <Adafruit_BNO055.h>  //
 #include <utility/imumaths.h>
 #include <SD.h>
 #include <Servo.h>
+
+#define BMP_SCK 5
+#define BMP_SDA 4
+
+#define SEALEVELPRESSURE_HPA (1013.25)
 
 Adafruit_BMP3XX bmp;
 
@@ -14,11 +19,33 @@ Servo servo_25kg_turret_PWM_S1;
 Servo servo_55g_wrist_PWM_S2;
 Servo servo_45kg_claw_PWM_S3;
 
-#define BMP_SCK 5
-#define BMP_SDA 4
+struct ros2Input{
+  bool ConnectionTest; //Testing Connection
+  bool circleButton;   //Circle Button -- Open Claw
+  bool crossButton;    //Cross Button -- Close Claw
+  bool l1Shoulder;     //L1 Left Shoulder Button -- Turn Wrist Left
+  bool r1Shoulder;     //R1 Right Shoulder Button -- Turn Wrist Right
+  float lStickY;       //Left Stick Y-axis -- Upper Elbow
+  float rStickY;       //Right Stick Y-axis -- Lower Elbow
+  bool dPadLeft;       //D-pad Left Button -- Turn Turret Left
+  bool dPadRight;      // D-pad Right Button -- Turn Turret Left
+};
+char buffer[sizeof(ros2Input)];
 
-#define SEALEVELPRESSURE_HPA (1013.25)
-
+struct picoOutput{
+  float lctrly;
+  float rcltry;
+  float ltrigger;
+  float rtrigger;
+  float temperature;
+  float pressure;
+  float acceleration;
+  int servoSpeed;
+  bool lshould;
+  bool rshould;
+  bool start;
+};
+char buffer2[sizeof(picoOutput)];
 
 /* Set the delay between fresh samples */
 uint16_t BNO055_SAMPLERATE_DELAY_MS = 100;
