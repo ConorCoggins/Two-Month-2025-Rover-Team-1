@@ -2,7 +2,11 @@
 build/
 install/
 <<<<<<< HEAD
+<<<<<<< HEAD
 log/
 =======
 log/
 >>>>>>> 7786a77b16163111969879841c3fdb5098a763ec
+=======
+log/
+>>>>>>> cbf182a96eac0549956b88d5e953de41112bb05d
