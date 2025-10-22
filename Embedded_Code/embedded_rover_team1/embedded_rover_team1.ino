@@ -29,10 +29,10 @@ Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28, &Wire);
 const int chipSelect = 17;
 File dataLog;
 
-const int m1_AIN1 = 24;
-const int m1_AIN2 = 25;
-const int m2_AIN1 = 26;
-const int m2_AIN2 = 27;
+const int m1_AIN1 = 18;
+const int m1_AIN2 = 19;
+const int m2_AIN1 = 20;
+const int m2_AIN2 = 21;
 
 void setup () {
   Serial.begin(9600);
@@ -259,7 +259,22 @@ void printEvent(sensors_event_t* event) {
   File dataLog = SD.open("dataLog.txt", FILE_WRITE);
 
   if (dataLog) {
-    dataLog.println(); // Add sensor data variables to print to SD card
+    dataLog.print(&orientationData); // Add sensor data variables to print to SD card
+    dataLog.print(','); 
+    dataLog.print(&angVelocityData);
+    dataLog.print(',');    
+    dataLog.print(&linearAccelData);
+    dataLog.print(',');   
+    dataLog.print(&accelerometerData);
+    dataLog.print(',');   
+    dataLog.print(&gravityData);
+    dataLog.print(',');
+    dataLog.print(&bmp.temperature);
+    dataLog.print(',');
+    dataLog.print(&bmp.temperature);
+    dataLog.print(',');
+    dataLog.print(&bmp.Altitude);
+    dataLog.print(',', \n);
     dataLog.close();// Dont add anything here
     Serial.println(); // Add sensor data variables you want to print to serial monitor
   } else{
@@ -275,6 +290,7 @@ void printEvent(sensors_event_t* event) {
 
 
   //SD Card Begin
+
   //SD Card END
 
 }
