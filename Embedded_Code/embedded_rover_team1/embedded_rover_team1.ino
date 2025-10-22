@@ -14,6 +14,7 @@
 #define SEALEVELPRESSURE_HPA (1013.25)
 
 Adafruit_BMP3XX bmp;
+Adafruit_BNO055 bno = Adafruit_BNO055(55);
 
 Servo servo_25kg_turret_PWM_S1;
 Servo servo_55g_wrist_PWM_S2;
@@ -40,9 +41,9 @@ struct picoOutput{
   float temperature;
   float pressure;
   float acceleration;
-  int servoSpeed;
-  bool lshould;
-  bool rshould;
+  int  servoSpeed;
+  bool lshoulder;
+  bool rshoulder;
   bool start;
 };
 char buffer2[sizeof(picoOutput)];
