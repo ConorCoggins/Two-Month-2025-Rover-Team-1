@@ -24,10 +24,10 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            'my_node = rospackage.my_node:main'
-            'basestationlistener = rospackage.basestationlistner:main'
-            'basestationtalker = rospackage.basestationtalker:main'
-            'picolistener = rospackage.picolistener:main'
+            'my_node = rospackage.my_node:main',
+            'basestationlistener = rospackage.basestationlistener:main',
+            'basestationtalker = rospackage.basestationtalker:main',
+            'picolistener = rospackage.picolistener:main',
             'picotalker = rospackage.picotalker:main'
         ],
     },
