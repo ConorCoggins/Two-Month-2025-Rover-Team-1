@@ -10,7 +10,7 @@ from PyQt6.QtWidgets import (
 from PyQt6.QtCore import QTimer, pyqtSignal
 from threading import Thread
 import pyqtgraph as pg
-
+import keyboard
 # Try to import and init DualSense
 ds = None
 try:
@@ -95,12 +95,12 @@ class ControlWindow(QWidget):
         btn_style = "min-width: 120px; min-height: 30px;"
         self.open_claw = QPushButton("Open Claw")
         self.close_claw = QPushButton("Close Claw")
-        self.wrist_up = QPushButton("Wrist Up")
-        self.wrist_down = QPushButton("Wrist Down")
-        self.elbow1_up = QPushButton("Elbow 1 Up")
-        self.elbow1_down = QPushButton("Elbow 1 Down")
-        self.elbow2_up = QPushButton("Elbow 2 Up")
-        self.elbow2_down = QPushButton("Elbow 2 Down")
+        self.wrist_up = QPushButton("Wrist Right")
+        self.wrist_down = QPushButton("Wrist Left")
+        self.elbow1_up = QPushButton("Lower Elbow Up")
+        self.elbow1_down = QPushButton("Lower Elbow Down")
+        self.elbow2_up = QPushButton("Upper Elbow Up")
+        self.elbow2_down = QPushButton("Upper Elbow Down")
         self.turret_left = QPushButton("Turret Left")
         self.turret_right = QPushButton("Turret Right")
 
@@ -112,15 +112,33 @@ class ControlWindow(QWidget):
         # Command lambdas
         self.open_claw.clicked.connect(lambda: self.send_command("OPENCLAW"))
         self.close_claw.clicked.connect(lambda: self.send_command("CLOSECLAW"))
-        self.wrist_up.clicked.connect(lambda: self.send_command("WRISTUP"))
-        self.wrist_down.clicked.connect(lambda: self.send_command("WRISTDOWN"))
-        self.elbow1_up.clicked.connect(lambda: self.send_command("ELBOW1UP"))
-        self.elbow1_down.clicked.connect(lambda: self.send_command("ELBOW1DOWN"))
-        self.elbow2_up.clicked.connect(lambda: self.send_command("ELBOW2UP"))
-        self.elbow2_down.clicked.connect(lambda: self.send_command("ELBOW2DOWN"))
+        self.wrist_up.clicked.connect(lambda: self.send_command("WRISTRIGHT"))
+        self.wrist_down.clicked.connect(lambda: self.send_command("WRISTLEFT"))
+        self.elbow1_up.clicked.connect(lambda: self.send_command("LOWERELBOWUP"))
+        self.elbow1_down.clicked.connect(lambda: self.send_command("LOWERELBOWDOWN"))
+        self.elbow2_up.clicked.connect(lambda: self.send_command("UPPERELBOWUP"))
+        self.elbow2_down.clicked.connect(lambda: self.send_command("UPPERELBOWDOWN"))
         self.turret_left.clicked.connect(lambda: self.send_command("TURRETLEFT"))
         self.turret_right.clicked.connect(lambda: self.send_command("TURRETRIGHT"))
 
+        if keyboard.is_pressed('a'):
+            lambda: self.send_command("WRISTLEFT")
+        elif keyboard.is_pressed('d'):
+            lambda: self.send_command("WRISTRIGHT")
+        elif keyboard.is_pressed('w'):
+            lambda: self.self_command("UPPERELBOWUP")
+        elif keyboard.is_pressed('s'):
+            lambda: self.self_command("UPPERELBOWDOWN")
+        elif keyboard.is_pressed('up'):
+            lambda: self.send_command("LOWERELBOWUP")
+        elif keyboard.is_pressed('down'):
+            lambda: self.send_command("LOWERELBOWDOWN")
+        elif keyboard.is_pressed('left'):
+            lambda: self.send_command("TURRETLEFT")
+        elif keyboard.is_pressed('right'):
+            lambda: self.send_command("TURRETRIGHT")
+
+    
         # Layout
         main = QVBoxLayout()
         main.setContentsMargins(10, 10, 10, 10)
@@ -165,16 +183,16 @@ class ControlWindow(QWidget):
                 if not state:
                     return
 
-                if state.DPadUp: self.send_command("WRISTUP")
-                if state.DPadDown: self.send_command("WRISTDOWN")
+                if state.DPadUp: self.send_command("WRISTRIGHT")
+                if state.DPadDown: self.send_command("WRISTLEFT")
                 if state.DPadLeft: self.send_command("TURRETLEFT")
                 if state.DPadRight: self.send_command("TURRETRIGHT")
                 if state.L2 > 128: self.send_command("OPENCLAW")
                 if state.R2 > 128: self.send_command("CLOSECLAW")
-                if state.LeftStickY > 0.5: self.send_command("ELBOW1UP")
-                if state.LeftStickY < -0.5: self.send_command("ELBOW1DOWN")
-                if state.RightStickY > 0.5: self.send_command("ELBOW2UP")
-                if state.RightStickY < -0.5: self.send_command("ELBOW2DOWN")
+                if state.LeftStickY > 0.5: self.send_command("LOWERELBOWUP")
+                if state.LeftStickY < -0.5: self.send_command("LOWERELBOWDOWN")
+                if state.RightStickY > 0.5: self.send_command("UPPERELBOWUP")
+                if state.RightStickY < -0.5: self.send_command("UPPERELBOWDOWN")
                 if any([state.DPadUp, state.DPadDown, state.DPadLeft, state.DPadRight,
                         state.L2 > 128, state.R2 > 128, abs(state.LeftStickY) > 0.5, abs(state.RightStickY) > 0.5]):
                     self.trigger_feedback()
