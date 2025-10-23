@@ -14,6 +14,7 @@
 #define SEALEVELPRESSURE_HPA (1013.25)
 
 Adafruit_BMP3XX bmp;
+Adafruit_BNO055 bno = Adafruit_BNO055(55);
 
 Servo servo_25kg_turret_PWM_S1;
 Servo servo_55g_wrist_PWM_S2;
@@ -40,9 +41,9 @@ struct picoOutput{
   float temperature;
   float pressure;
   float acceleration;
-  int servoSpeed;
-  bool lshould;
-  bool rshould;
+  int  servoSpeed;
+  bool lshoulder;
+  bool rshoulder;
   bool start;
 };
 char buffer2[sizeof(picoOutput)];
@@ -52,9 +53,8 @@ uint16_t BNO055_SAMPLERATE_DELAY_MS = 100;
 
 // Check I2C device address and correct line below (by default address is 0x29 or 0x28)
 //                                   id, address
-Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28, &Wire);
+
 const int chipSelect = 17;
-File dataLog;
 
 const int m1_AIN1 = 18;
 const int m1_AIN2 = 19;
@@ -66,26 +66,6 @@ void setup () {
   while (!Serial);
   Serial.print("Testing the Servos \n");
 
-  //Servo 1
-  servo_25kg_turret_PWM_S1.attach(12);
-
-  Serial.print(" - Moving Servo 1 into Central Position \n");
-  servo_25kg_turret_PWM_S1.writeMicroseconds(1500);
-
-  //Servo 2 
-  servo_55g_wrist_PWM_S2.attach(13);
-
-  Serial.print(" - Moving Servo 2 into Central Position \n");
-  servo_55g_wrist_PWM_S2.writeMicroseconds(1500);
-
-  //Servo 3
-  servo_45kg_claw_PWM_S3.attach(14);
-
-  Serial.print(" - Moving Servo 3 into Central Position \n");
-  servo_45kg_claw_PWM_S3.writeMicroseconds(1500);
-
-
-  ////read_all_data example copy paste
   //BNO Code Begin
 
   Serial.println("Orientation Sensor Test"); Serial.println("");
@@ -122,84 +102,93 @@ void setup () {
   delay(2000);
 
   //SD Card End
-  ////
 
 }
 
 void loop () {
-  
+  if (Serial.available()) {
+    Serial.readBytes(buffer, sizeof(ros2Input));
+    struct picoOutput mainOutput;
+    struct ros2Input mainInput;
+    memcpy (&mainInput, &buffer, sizeof(ros2Input));
 
-  servo_25kg_turret_PWM_S1.write(100);
-  delay(2000);
-  servo_25kg_turret_PWM_S1.write(0);
-  delay(2000);
 
-  servo_55g_wrist_PWM_S2.write(100);
-  delay(2000);
-  servo_55g_wrist_PWM_S2.write(0);
-  delay(2000);
+    if (mainInput.ConnectionTest == 1) {
+        delay(500);
+        digitalWrite(LED_BUILTIN, LOW);
+        delay(500);
+        digitalWrite(LED_BUILTIN, HIGH);
+      }
 
-  servo_45kg_claw_PWM_S3.write(100);
-  delay(2000);
-  servo_45kg_claw_PWM_S3.write(0);
-  delay(2000);
-  
-  //BNO Data Begin
-  
+    servo_25kg_turret_PWM_S1.write(100);
+    delay(2000);
+    servo_25kg_turret_PWM_S1.write(0);
+    delay(2000);
 
-  
-  //SCL_Sensor
-  
+    servo_55g_wrist_PWM_S2.write(100);
+    delay(2000);
+    servo_55g_wrist_PWM_S2.write(0);
+    delay(2000);
 
-  ////read_all_data example copy paste Begin
+    servo_45kg_claw_PWM_S3.write(100);
+    delay(2000);
+    servo_45kg_claw_PWM_S3.write(0);
+    delay(2000);
+    
+    
+    
+    //SCL_Sensor
+    
 
-  //could add VECTOR_ACCELEROMETER, VECTOR_MAGNETOMETER,VECTOR_GRAVITY...
-  sensors_event_t orientationData , angVelocityData , linearAccelData, magnetometerData, accelerometerData, gravityData;
-  bno.getEvent(&orientationData, Adafruit_BNO055::VECTOR_EULER);
-  bno.getEvent(&angVelocityData, Adafruit_BNO055::VECTOR_GYROSCOPE);
-  bno.getEvent(&linearAccelData, Adafruit_BNO055::VECTOR_LINEARACCEL);
-  bno.getEvent(&magnetometerData, Adafruit_BNO055::VECTOR_MAGNETOMETER);
-  bno.getEvent(&accelerometerData, Adafruit_BNO055::VECTOR_ACCELEROMETER);
-  bno.getEvent(&gravityData, Adafruit_BNO055::VECTOR_GRAVITY);
+    //could add VECTOR_ACCELEROMETER, VECTOR_MAGNETOMETER,VECTOR_GRAVITY...
+    sensors_event_t orientationData , angVelocityData , linearAccelData, magnetometerData, accelerometerData, gravityData;
+    bno.getEvent(&orientationData, Adafruit_BNO055::VECTOR_EULER);
+    bno.getEvent(&angVelocityData, Adafruit_BNO055::VECTOR_GYROSCOPE);
+    bno.getEvent(&linearAccelData, Adafruit_BNO055::VECTOR_LINEARACCEL);
+    bno.getEvent(&magnetometerData, Adafruit_BNO055::VECTOR_MAGNETOMETER);
+    bno.getEvent(&accelerometerData, Adafruit_BNO055::VECTOR_ACCELEROMETER);
+    bno.getEvent(&gravityData, Adafruit_BNO055::VECTOR_GRAVITY);
 
-  printEvent(&orientationData);
-  printEvent(&angVelocityData);
-  printEvent(&linearAccelData);
-  printEvent(&magnetometerData);
-  printEvent(&accelerometerData);
-  printEvent(&gravityData);
+    printEvent(&orientationData);
+    printEvent(&angVelocityData);
+    printEvent(&linearAccelData);
+    printEvent(&magnetometerData);
+    printEvent(&accelerometerData);
+    printEvent(&gravityData);
 
-  int8_t boardTemp = bno.getTemp();
-  Serial.println();
-  Serial.print(F("temperature: "));
-  Serial.println(boardTemp);
+    int8_t boardTemp = bno.getTemp();
+    Serial.println();
+    Serial.print(F("temperature: "));
+    Serial.println(boardTemp);
 
-  uint8_t system = 0;
-  uint8_t gyro = 0;
-  uint8_t accel = 0;
-  uint8_t mag = 0;
-  bno.getCalibration(&system, &gyro, &accel, &mag);
-  Serial.println();
-  Serial.print("Calibration: Sys=");
-  Serial.print(system);
-  Serial.print(" Gyro=");
-  Serial.print(gyro);
-  Serial.print(" Accel=");
-  Serial.print(accel);
-  Serial.print(" Mag=");
-  Serial.println(mag);
+    uint8_t system = 0;
+    uint8_t gyro = 0;
+    uint8_t accel = 0;
+    uint8_t mag = 0;
+    bno.getCalibration(&system, &gyro, &accel, &mag);
+    Serial.println();
+    Serial.print("Calibration: Sys=");
+    Serial.print(system);
+    Serial.print(" Gyro=");
+    Serial.print(gyro);
+    Serial.print(" Accel=");
+    Serial.print(accel);
+    Serial.print(" Mag=");
+    Serial.println(mag);
 
-  Serial.println("--");
-  delay(BNO055_SAMPLERATE_DELAY_MS);
-  
-  digitalWrite(m1_AIN1, HIGH);
-  digitalWrite(m1_AIN2, LOW);
+    Serial.println("--");
+    delay(BNO055_SAMPLERATE_DELAY_MS);
+    
+    digitalWrite(m1_AIN1, HIGH);
+    digitalWrite(m1_AIN2, LOW);
 
-  delay(2500);
+    delay(2500);
 
-  digitalWrite(m1_AIN2, HIGH);
-  digitalWrite(m1_AIN1, LOW);
-  
+    digitalWrite(m1_AIN2, HIGH);
+    digitalWrite(m1_AIN1, LOW);
+    
+  }
+
 }
 
 void printEvent(sensors_event_t* event) {
@@ -256,69 +245,6 @@ void printEvent(sensors_event_t* event) {
   Serial.print(y);
   Serial.print(" |\tz= ");
   Serial.println(z);
-
-
-  //BNO Data End
-
-  //BMP Data Begin
-  
-  if (! bmp.performReading()) {
-   Serial.println("Failed to perform reading :(");
-   return;
- }
- Serial.print("Temperature = ");
- Serial.print(bmp.temperature);
-  Serial.println(" *C");
-
- Serial.print("Pressure = ");
- Serial.print(bmp.pressure / 100.0);
- Serial.println(" hPa");
-
- Serial.print("Approx. Altitude = ");
- Serial.print(bmp.readAltitude(SEALEVELPRESSURE_HPA));
- Serial.println(" m");
-
- Serial.println();
-
- // BMP Data End
-
-  //SD Card Begin
-  // File dataLog = SD.open("dataLog.txt", FILE_WRITE);
-
-  // if (dataLog) {
-  //   dataLog.print(&orientationData); // Add sensor data variables to print to SD card
-  //   dataLog.print(','); 
-  //   dataLog.print(&angVelocityData);
-  //   dataLog.print(',');    
-  //   dataLog.print(&linearAccelData);
-  //   dataLog.print(',');   
-  //   dataLog.print(&accelerometerData);
-  //   dataLog.print(',');   
-  //   dataLog.print(&gravityData);
-  //   dataLog.print(',');
-  //   dataLog.print(&bmp.readTemperature);
-  //   dataLog.print(',');
-  //   dataLog.print(&bmp.readPressure);
-  //   dataLog.print(',');
-  //   dataLog.print(&bmp.readAltitude);
-  //   dataLog.print(',');
-  //   dataLog.println();
-  //   dataLog.close();// Dont add anything here
-  //   Serial.println(); // Add sensor data variables you want to print to serial monitor
-  // } else{
-  //   Serial.println("Failed to open dataLog.txt");
-  // }
-
-  delay(2000);
-
-  // BNO Data end
-
-  //BMP Data Begin
-  //BMP Data End
-
-
-  //SD Card Begin
-
-  //SD Card END
-
 }
+
+
