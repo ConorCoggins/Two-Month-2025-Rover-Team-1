@@ -351,9 +351,6 @@ def main():
     talker_node = BaseStationTalkerNode()
     app = QApplication(sys.argv)
 
-    if not ds:
-        no_controller_window()
-
     plot_win = PlotWindow()
     ctrl_win = ControlWindow(talker_node)
     ctrl_win.show()
