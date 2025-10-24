@@ -25,18 +25,16 @@ temperature = 0.0  # °C
 pressure = 0.0     # hPa
 acceleration = 0.0 # ft/s²
 altitude = 0.0     # ft
+wrist_position = 0.0
+lower_elbow_position = 0.0
+upper_elbow_position = 0.0
+turret_position = 0.0
 
 class BaseStationTalkerNode(Node):
     def __init__(self):
         super().__init__('base_station_talker')
         self.publisher = self.create_publisher(String, 'robot_commands', 10)
         self.get_logger().info('Base Station Talker node started')
-
-    def send_command(self, command):
-        msg = String()
-        msg.data = command
-        self.publisher.publish(msg)
-        self.get_logger().info(f'Published command: {command}')
 
 class BaseStationListenerNode(Node):
     def __init__(self, update_signal):
@@ -72,6 +70,28 @@ class BaseStationListenerNode(Node):
     def press_callback(self, msg):
         global pressure
         pressure = msg.data
+        self.update_signal.emit()
+    
+    def wrist_move(angle_change):
+        global wrist_position
+        wrist_position = wrist_position + angle_change
+        self.update_signal.emit()
+
+    def lower_elbow_move(angle_change):
+        global lower_elbow_position
+        lower_elbow_position = lower_elbow_position + angle_change
+        self.update_signal.emit()
+    def upper_elbow_move(angle_change):
+        global upper_elbow_position
+        upper_elbow_position = upper_elbow_position + angle_change
+
+    def turret_move(angle_change):
+        global turret_position
+        turret_position = turret_position + angle_change
+        self.update_signal.emit()
+    def claw_move(angle_change):
+        global claw_position
+        claw_position = claw_position + angle_change
         self.update_signal.emit()
 
 class Ros2Thread(Thread):
@@ -110,33 +130,36 @@ class ControlWindow(QWidget):
             b.setStyleSheet(btn_style)
 
         # Command lambdas
-        self.open_claw.clicked.connect(lambda: self.send_command("OPENCLAW"))
-        self.close_claw.clicked.connect(lambda: self.send_command("CLOSECLAW"))
-        self.wrist_up.clicked.connect(lambda: self.send_command("WRISTRIGHT"))
-        self.wrist_down.clicked.connect(lambda: self.send_command("WRISTLEFT"))
-        self.elbow1_up.clicked.connect(lambda: self.send_command("LOWERELBOWUP"))
-        self.elbow1_down.clicked.connect(lambda: self.send_command("LOWERELBOWDOWN"))
-        self.elbow2_up.clicked.connect(lambda: self.send_command("UPPERELBOWUP"))
-        self.elbow2_down.clicked.connect(lambda: self.send_command("UPPERELBOWDOWN"))
-        self.turret_left.clicked.connect(lambda: self.send_command("TURRETLEFT"))
-        self.turret_right.clicked.connect(lambda: self.send_command("TURRETRIGHT"))
-
+        self.open_claw.clicked.connect(lambda: claw_move(+10.0))
+        self.close_claw.clicked.connect(lambda: claw_move(-10.0))
+        self.wrist_up.clicked.connect(lambda: wrist_move(+10.0))
+        self.wrist_down.clicked.connect(lambda: wrist_move(-10.0))
+        self.elbow1_up.clicked.connect(lambda: lower_elbow_move(+10.0))
+        self.elbow1_down.clicked.connect(lambda: lower_elbow_move(-10.0))
+        self.elbow2_up.clicked.connect(lambda: upper_elbow_move(+10.0))
+        self.elbow2_down.clicked.connect(lambda: upper_elbow_move(-10.0))
+        self.turret_left.clicked.connect(lambda: turret_move(-10.0))
+        self.turret_right.clicked.connect(lambda: turret_move(+10.0))
         if keyboard.is_pressed('a'):
-            lambda: self.send_command("WRISTLEFT")
+            (wrist_move(+10.0))
         elif keyboard.is_pressed('d'):
-            lambda: self.send_command("WRISTRIGHT")
+            (wrist_move(-10.0))
         elif keyboard.is_pressed('w'):
-            lambda: self.self_command("UPPERELBOWUP")
+            (upper_elbow_move(+10.0))
         elif keyboard.is_pressed('s'):
-            lambda: self.self_command("UPPERELBOWDOWN")
+            (upper_elbow_move(-10.0))
         elif keyboard.is_pressed('up'):
-            lambda: self.send_command("LOWERELBOWUP")
+            (lower_elbow_move(+10.0))
         elif keyboard.is_pressed('down'):
-            lambda: self.send_command("LOWERELBOWDOWN")
+            (lower_elbow_move(-10.0))
         elif keyboard.is_pressed('left'):
-            lambda: self.send_command("TURRETLEFT")
+            (turret_move(-10.0))
         elif keyboard.is_pressed('right'):
-            lambda: self.send_command("TURRETRIGHT")
+            (turret_move(+10.0))
+        elif keyboard.is_pressed('q'):
+            (claw_move(+10.0))
+        elif keyboard.is_pressed('e'):
+            (claw_move(-10.0))
 
     
         # Layout
@@ -183,16 +206,16 @@ class ControlWindow(QWidget):
                 if not state:
                     return
 
-                if state.DPadUp: self.send_command("WRISTRIGHT")
-                if state.DPadDown: self.send_command("WRISTLEFT")
-                if state.DPadLeft: self.send_command("TURRETLEFT")
-                if state.DPadRight: self.send_command("TURRETRIGHT")
-                if state.L2 > 128: self.send_command("OPENCLAW")
-                if state.R2 > 128: self.send_command("CLOSECLAW")
-                if state.LeftStickY > 0.5: self.send_command("LOWERELBOWUP")
-                if state.LeftStickY < -0.5: self.send_command("LOWERELBOWDOWN")
-                if state.RightStickY > 0.5: self.send_command("UPPERELBOWUP")
-                if state.RightStickY < -0.5: self.send_command("UPPERELBOWDOWN")
+                if state.DPadUp: wrist_move(+10.0)
+                if state.DPadDown: wrist_move(-10.0)
+                if state.DPadLeft: turret_move(-10.0)
+                if state.DPadRight: turret_move(+10.0)
+                if state.L2 > 128: claw_move(+10.0)
+                if state.R2 > 128: claw_move(-10.0)
+                if state.LeftStickY > 0.5: lower_elbow_move(+10.0)
+                if state.LeftStickY < -0.5: lower_elbow_move(-10.0)
+                if state.RightStickY > 0.5: upper_elbow_move(+10.0)
+                if state.RightStickY < -0.5: upper_elbow_move(-10.0)
                 if any([state.DPadUp, state.DPadDown, state.DPadLeft, state.DPadRight,
                         state.L2 > 128, state.R2 > 128, abs(state.LeftStickY) > 0.5, abs(state.RightStickY) > 0.5]):
                     self.trigger_feedback()
@@ -200,13 +223,6 @@ class ControlWindow(QWidget):
             controller_timer = QTimer(self)
             controller_timer.timeout.connect(poll_controller)
             controller_timer.start(50)  # Poll at 20 Hz
-
-    def send_command(self, command):
-        try:
-            self.node.send_command(command)
-            QMessageBox.information(self, "Command Sent", f"Sent command: {command}")
-        except Exception as e:
-            QMessageBox.critical(self, "Error", f"Failed to send command: {e}")
 
     def trigger_feedback(self):
         if ds:
