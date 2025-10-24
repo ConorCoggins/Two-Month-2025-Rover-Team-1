@@ -1,4 +1,5 @@
 import rclpy
+import serial
 from rclpy.node import Node
 from std_msgs.msg import String
 from threading import Lock
@@ -22,6 +23,7 @@ class picolistener(Node):
     with self._lock:
       self.last_command = msg.data
     self.get_logger().info(f'Received command: "{msg.data}"')
+    serial.write(f"{msg.data}\n".encode())
 
   def _timer_report(self):
     with self._lock:

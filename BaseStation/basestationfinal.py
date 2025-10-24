@@ -129,14 +129,14 @@ class ControlWindow(QWidget):
         self.turret_left.clicked.connect(lambda: self.send_command("TURRETLEFT"))
         self.turret_right.clicked.connect(lambda: self.send_command("TURRETRIGHT"))
 
-        keyboard.add_hotkey('w', lambda: self.send_command('WRISTRIGHT'))
-        keyboard.add_hotkey('s', lambda: self.send_command('WRISTLEFT'))
-        keyboard.add_hotkey('a', lambda: self.send_command('TURRETLEFT'))
-        keyboard.add_hotkey('d', lambda: self.send_command('TURRETRIGHT'))
-        keyboard.add_hotkey('u', lambda: self.send_command('LOWERELBOWUP'))
-        keyboard.add_hotkey('j', lambda: self.send_command('LOWERELBOWDOWN'))
-        keyboard.add_hotkey('o', lambda: self.send_command('UPPERELBOWUP'))
-        keyboard.add_hotkey('l', lambda: self.send_command('UPPERELBOWDOWN'))
+        keyboard.add_hotkey('d', lambda: self.send_command('WRISTRIGHT'))
+        keyboard.add_hotkey('a', lambda: self.send_command('WRISTLEFT'))
+        keyboard.add_hotkey('left', lambda: self.send_command('TURRETLEFT'))
+        keyboard.add_hotkey('right', lambda: self.send_command('TURRETRIGHT'))
+        keyboard.add_hotkey('up', lambda: self.send_command('LOWERELBOWUP'))
+        keyboard.add_hotkey('down', lambda: self.send_command('LOWERELBOWDOWN'))
+        keyboard.add_hotkey('w', lambda: self.send_command('UPPERELBOWUP'))
+        keyboard.add_hotkey('s', lambda: self.send_command('UPPERELBOWDOWN'))
         keyboard.add_hotkey('q', lambda: self.send_command('OPENCLAW'))
         keyboard.add_hotkey('e', lambda: self.send_command('CLOSECLAW'))
 
@@ -350,9 +350,6 @@ def main():
     rclpy.init()
     talker_node = BaseStationTalkerNode()
     app = QApplication(sys.argv)
-
-    if not ds:
-        no_controller_window()
 
     plot_win = PlotWindow()
     ctrl_win = ControlWindow(talker_node)

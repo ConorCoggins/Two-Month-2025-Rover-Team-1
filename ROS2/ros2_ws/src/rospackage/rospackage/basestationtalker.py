@@ -1,4 +1,5 @@
 import rclpy
+import serial
 from rclpy.node import Node
 from std_msgs.msg import String
 
@@ -6,16 +7,12 @@ class basestationtalker(Node):
   def __init__(self):
     super().__init__('basestation_talker')
     self.publisher_ = self.create_publisher(String, 'command', 10)
-    timer_period = 0.5  # seconds
-    self.timer = self.create_timer(timer_period, self.timer_callback)
-    self.i = 0
 
-  def timer_callback(self):
+  def update_motor(self, wrist_position=0, claw_position=0, upper_elbow=0, lower_elbow=0, turret_position=0):
+    serial.write(f",W{wrist_position}C{claw_position}U{upper_elbow}L{lower_elbow}T{turret_position}\n".encode())
     msg = String()
-    msg.data = f'CMD_{self.i}'  # replace with any string command or source variable
+    msg.data = f",W{wrist_position}C{claw_position}U{upper_elbow}L{lower_elbow}T{turret_position}"
     self.publisher_.publish(msg)
-    self.get_logger().info(f'Publishing: "{msg.data}"')
-    self.i += 1
 
 def main(args=None):
   rclpy.init(args=args)
