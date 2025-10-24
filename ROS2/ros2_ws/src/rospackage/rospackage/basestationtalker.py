@@ -9,9 +9,9 @@ class basestationtalker(Node):
     self.publisher_ = self.create_publisher(String, 'command', 10)
 
   def update_motor(self, wrist_position=0, claw_position=0, upper_elbow=0, lower_elbow=0, turret_position=0):
-    serial.write(f",W{wrist_position}C{claw_position}U{upper_elbow}L{lower_elbow}T{turret_position}\n".encode())
+    serial.write(f"L{lower_elbow}\n".encode())
     msg = String()
-    msg.data = f",W{wrist_position}C{claw_position}U{upper_elbow}L{lower_elbow}T{turret_position}"
+    msg.data = f",L{lower_elbow}"
     self.publisher_.publish(msg)
 
 def main(args=None):
