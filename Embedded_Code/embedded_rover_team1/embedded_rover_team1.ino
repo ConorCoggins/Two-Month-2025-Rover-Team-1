@@ -27,8 +27,6 @@ Servo Wrist;
 Servo UpperElbow;
 Servo LowerElbow;
 
-int ServoMult = 45;
-
 // struct ros2Input{
 //   bool ConnectionTest; //Testing Connection
 //   bool circleButton;   //Circle Button -- Open Claw
@@ -60,44 +58,44 @@ int ServoMult = 45;
 // };
 // char buffer2[sizeof(picoOutput)];
 
-/* Set the delay between fresh samples */
-uint16_t BNO055_SAMPLERATE_DELAY_MS = 100;
+
 
 // Check I2C device address and correct line below (by default address is 0x29 or 0x28)
 //                                   id, address
 
-const int chipSelect = 17;
+// const int chipSelect = 17;
 
-const int m1_AIN1 = 18;
-const int m1_AIN2 = 19;
-const int m2_AIN1 = 20;
-const int m2_AIN2 = 21;
+// const int m1_AIN1 = 18;
+// const int m1_AIN2 = 19;
+// const int m2_AIN1 = 20;
+// const int m2_AIN2 = 21;
 
 void setup () {
   Serial.begin(115200);
   while (!Serial) delay(10);  // wait for serial port to open!
 
-  Serial.println("Orientation Sensor Test"); Serial.println("");
+  LowerElbow.attach(12);
+  //Serial.println("Orientation Sensor Test"); Serial.println("");
 
   //Initialise the BNO
-  Serial.println("Initializing Adafruit BNO55");
+  //Serial.println("Initializing Adafruit BNO55");
   if (!bno.begin()){
-    Serial.print("Ooops, no BNO055 detected... Check your wiring.");
+    //Serial.print("Ooops, no BNO055 detected... Check your wiring.");
     while (1); // ask Jack what this does
   }
   else {
-    Serial.println("Adafruit BNO55 Initialized");
+    //Serial.println("Adafruit BNO55 Initialized");
   }
   bno.setExtCrystalUse(true);
 
   // Initialise the BMP
-  Serial.println("Initializing Adafruit BMP388");
+  //Serial.println("Initializing Adafruit BMP388");
   if (!bmp.begin_I2C()) {   // hardware I2C mode, can pass in address & alt Wire
-    Serial.println("Could not find a valid BMP388 sensor... Check your wiring.");
+    //Serial.println("Could not find a valid BMP388 sensor... Check your wiring.");
     while (1); // ask Jack what this does
   }
   else {
-    Serial.println("Adafruit BMP388 Initialized");
+    //Serial.println("Adafruit BMP388 Initialized");
   }
 
   // Set up oversampling and filter initialization
@@ -108,11 +106,11 @@ void setup () {
   //BMP Code End
 
   //SD Card Begin
-  Serial.print("Initializing SD card...");
-  while (!SD.begin(chipSelect)) {
-    Serial.println("Failed to initialize SD Card.");
-  }
-  Serial.println("SD Card itilialized successfully.");
+  // Serial.print("Initializing SD card...");
+  // while (!SD.begin(chipSelect)) {
+  //   Serial.println("Failed to initialize SD Card.");
+  // }
+  // Serial.println("SD Card itilialized successfully.");
   //SD Card End
 
 
@@ -131,17 +129,16 @@ void loop () {
     //     delay(500);
     //     digitalWrite(LED_BUILTIN, HIGH);
     // }
-    if (! bmp.performReading()) {
-    Serial.println("Failed to perform reading BMP #1 :(");
+    if (! bmp.performReading() > 0) {
+    //Serial.println("Failed to perform reading BMP #1 :(");
     return;
     }
+    
     
     bmp.temperature; 
     bmp.pressure / 100.0;  
     bmp.readAltitude(SEALEVELPRESSURE_HPA);
-
-
-
+    
     //   //Read Approximate Altitude in Meters
     // bmp.readPressure() //Reads pressure in Pascal and calculates into Hectopascal
     // bmp.readTemperature()
@@ -163,5 +160,31 @@ void loop () {
 
       // 101.32
       // 99.76
+  }
 }
+
+void readSerial(){
+  // Checks if serial is avaliable (value greater than 0)
+  if(Serial.available() >0){
+    String command = Serial.readStringUntil('\n'); //Read serial until newline
+    command.trim(); //Remove whitespace
+    // If no command is received
+    if(command.length() == 0){
+      Serial.println("No motor command received");
+      return;
+    }
+    else{
+      // Initilize array of the size of the serial input string. Print out over serial the value that the axis was commanded to move
+      const int commandSize = command.length() +1; //Command size is equal to length of command string +1
+      char commands[commandSize]; 
+      command.toCharArray(commands,commandSize); //create commands array using commmands and commandSize
+      int LowerElbowMove = command[0]; //Acess first value in array (corresponds to axis 1)
+      LowerElbow.write(LowerElbowMove); //Move axis 1
+      Serial.print(LowerElbowMove);
+    }
+  }
+  else{
+    // If not print no serial avaliable
+    Serial.println("No serial avaliable");
+  }
 }
