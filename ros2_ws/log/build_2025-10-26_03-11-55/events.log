@@ -1,0 +1,127 @@
+[0.000000] (-) TimerEvent: {}
+[0.003565] (py_rospackage) JobQueued: {'identifier': 'py_rospackage', 'dependencies': OrderedDict()}
+[0.005209] (py_rospackage) JobStarted: {'identifier': 'py_rospackage'}
+[0.097900] (-) TimerEvent: {}
+[0.199219] (-) TimerEvent: {}
+[0.300724] (-) TimerEvent: {}
+[0.402148] (-) TimerEvent: {}
+[0.503669] (-) TimerEvent: {}
+[0.605238] (-) TimerEvent: {}
+[0.706549] (-) TimerEvent: {}
+[0.807898] (-) TimerEvent: {}
+[0.909233] (-) TimerEvent: {}
+[1.010589] (-) TimerEvent: {}
+[1.112081] (-) TimerEvent: {}
+[1.213553] (-) TimerEvent: {}
+[1.314985] (-) TimerEvent: {}
+[1.416464] (-) TimerEvent: {}
+[1.517840] (-) TimerEvent: {}
+[1.619191] (-) TimerEvent: {}
+[1.720614] (-) TimerEvent: {}
+[1.822078] (-) TimerEvent: {}
+[1.923525] (-) TimerEvent: {}
+[2.025086] (-) TimerEvent: {}
+[2.126542] (-) TimerEvent: {}
+[2.228083] (-) TimerEvent: {}
+[2.329431] (-) TimerEvent: {}
+[2.430900] (-) TimerEvent: {}
+[2.532420] (-) TimerEvent: {}
+[2.633740] (-) TimerEvent: {}
+[2.735255] (-) TimerEvent: {}
+[2.836914] (-) TimerEvent: {}
+[2.940425] (-) TimerEvent: {}
+[3.042954] (-) TimerEvent: {}
+[3.144382] (-) TimerEvent: {}
+[3.245892] (-) TimerEvent: {}
+[3.347405] (-) TimerEvent: {}
+[3.448919] (-) TimerEvent: {}
+[3.550387] (-) TimerEvent: {}
+[3.651789] (-) TimerEvent: {}
+[3.753135] (-) TimerEvent: {}
+[3.854512] (-) TimerEvent: {}
+[3.955901] (-) TimerEvent: {}
+[4.057387] (-) TimerEvent: {}
+[4.159019] (-) TimerEvent: {}
+[4.260496] (-) TimerEvent: {}
+[4.362064] (-) TimerEvent: {}
+[4.463455] (-) TimerEvent: {}
+[4.564917] (-) TimerEvent: {}
+[4.666342] (-) TimerEvent: {}
+[4.767736] (-) TimerEvent: {}
+[4.869301] (-) TimerEvent: {}
+[4.970624] (-) TimerEvent: {}
+[5.072049] (-) TimerEvent: {}
+[5.173519] (-) TimerEvent: {}
+[5.275205] (-) TimerEvent: {}
+[5.376671] (-) TimerEvent: {}
+[5.478097] (-) TimerEvent: {}
+[5.579427] (-) TimerEvent: {}
+[5.680964] (-) TimerEvent: {}
+[5.782457] (-) TimerEvent: {}
+[5.883800] (-) TimerEvent: {}
+[5.985326] (-) TimerEvent: {}
+[6.086690] (-) TimerEvent: {}
+[6.188138] (-) TimerEvent: {}
+[6.289647] (-) TimerEvent: {}
+[6.391174] (-) TimerEvent: {}
+[6.492562] (-) TimerEvent: {}
+[6.594025] (-) TimerEvent: {}
+[6.695709] (-) TimerEvent: {}
+[6.712686] (py_rospackage) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'egg_info', '--egg-base', '../../build/py_rospackage', 'build', '--build-base', '/home/ubuntu/team1-rover/ros2_ws/build/py_rospackage/build', 'install', '--record', '/home/ubuntu/team1-rover/ros2_ws/build/py_rospackage/install.log', '--single-version-externally-managed', 'install_data'], 'cwd': '/home/ubuntu/team1-rover/ros2_ws/src/py_rospackage', 'env': {'LESSOPEN': '| /usr/bin/lesspipe %s', 'MAIL': '/var/mail/ubuntu', 'USER': 'ubuntu', 'XDG_SEAT': 'seat0', 'XDG_SESSION_TYPE': 'tty', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib', 'MOTD_SHOWN': 'pam', 'HOME': '/home/ubuntu', 'OLDPWD': '/home/ubuntu/team1-rover/ros2_ws/src', 'NVM_BIN': '/home/ubuntu/.nvm/versions/node/v20.19.5/bin', 'NVM_INC': '/home/ubuntu/.nvm/versions/node/v20.19.5/include/node', 'HUSHLOGIN': 'FALSE', 'ROS_PYTHON_VERSION': '3', 'SYSTEMD_EXEC_PID': '1005', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'NVM_DIR': '/home/ubuntu/.nvm', 'COLCON_PREFIX_PATH': '/home/ubuntu/team1-rover/ros2_ws/install:/home/ubuntu/Downloads/Two-Month-2025-Rover-Team-1-Software/ROS2/ros2_ws/install', 'ROS_DISTRO': 'humble', 'LOGNAME': 'ubuntu', 'JOURNAL_STREAM': '9:12502', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'TERM': 'linux', 'XDG_SESSION_ID': '1', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/opt/ros/humble/bin:/home/ubuntu/.nvm/versions/node/v20.19.5/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin', 'INVOCATION_ID': '65033ab0e99f431bafdfcfb36b349511', 'XDG_RUNTIME_DIR': '/run/user/1000', 'LANG': 'en_US.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'AMENT_PREFIX_PATH': '/home/ubuntu/team1-rover/ros2_ws/install/py_rospackage:/home/ubuntu/Downloads/Two-Month-2025-Rover-Team-1-Software/ROS2/ros2_ws/install/rospackage:/opt/ros/humble', 'SHELL': '/bin/bash', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'XDG_VTNR': '1', 'PWD': '/home/ubuntu/team1-rover/ros2_ws/build/py_rospackage', 'LC_ALL': 'en_US.UTF-8', 'NVM_CD_FLAGS': '', 'XDG_DATA_DIRS': '/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/ubuntu/team1-rover/ros2_ws/build/py_rospackage/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ubuntu/team1-rover/ros2_ws/install/py_rospackage/lib/python3.10/site-packages:/home/ubuntu/team1-rover/ros2_ws/install/py_rospackage/lib/python3.10/site-packages:/home/ubuntu/Downloads/Two-Month-2025-Rover-Team-1-Software/ROS2/ros2_ws/install/rospackage/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages', 'COLCON': '1'}, 'shell': False}
+[6.796024] (-) TimerEvent: {}
+[6.897400] (-) TimerEvent: {}
+[6.999019] (-) TimerEvent: {}
+[7.100417] (-) TimerEvent: {}
+[7.201866] (-) TimerEvent: {}
+[7.303261] (-) TimerEvent: {}
+[7.404959] (-) TimerEvent: {}
+[7.506313] (-) TimerEvent: {}
+[7.607618] (-) TimerEvent: {}
+[7.708988] (-) TimerEvent: {}
+[7.810330] (-) TimerEvent: {}
+[7.911751] (-) TimerEvent: {}
+[8.013220] (-) TimerEvent: {}
+[8.114592] (-) TimerEvent: {}
+[8.215993] (-) TimerEvent: {}
+[8.317544] (-) TimerEvent: {}
+[8.418953] (-) TimerEvent: {}
+[8.520378] (-) TimerEvent: {}
+[8.621838] (-) TimerEvent: {}
+[8.723283] (-) TimerEvent: {}
+[8.824563] (-) TimerEvent: {}
+[8.926058] (-) TimerEvent: {}
+[9.027425] (-) TimerEvent: {}
+[9.128993] (-) TimerEvent: {}
+[9.230365] (-) TimerEvent: {}
+[9.331945] (-) TimerEvent: {}
+[9.392189] (py_rospackage) StdoutLine: {'line': b'running egg_info\n'}
+[9.398299] (py_rospackage) StdoutLine: {'line': b'writing ../../build/py_rospackage/py_rospackage.egg-info/PKG-INFO\n'}
+[9.400305] (py_rospackage) StdoutLine: {'line': b'writing dependency_links to ../../build/py_rospackage/py_rospackage.egg-info/dependency_links.txt\n'}
+[9.402288] (py_rospackage) StdoutLine: {'line': b'writing entry points to ../../build/py_rospackage/py_rospackage.egg-info/entry_points.txt\n'}
+[9.403963] (py_rospackage) StdoutLine: {'line': b'writing requirements to ../../build/py_rospackage/py_rospackage.egg-info/requires.txt\n'}
+[9.405407] (py_rospackage) StdoutLine: {'line': b'writing top-level names to ../../build/py_rospackage/py_rospackage.egg-info/top_level.txt\n'}
+[9.420060] (py_rospackage) StdoutLine: {'line': b"reading manifest file '../../build/py_rospackage/py_rospackage.egg-info/SOURCES.txt'\n"}
+[9.422092] (py_rospackage) StdoutLine: {'line': b"adding license file 'LICENSE'\n"}
+[9.429990] (py_rospackage) StdoutLine: {'line': b"writing manifest file '../../build/py_rospackage/py_rospackage.egg-info/SOURCES.txt'\n"}
+[9.431846] (py_rospackage) StdoutLine: {'line': b'running build\n'}
+[9.432995] (-) TimerEvent: {}
+[9.434308] (py_rospackage) StdoutLine: {'line': b'running build_py\n'}
+[9.435832] (py_rospackage) StdoutLine: {'line': b'running install\n'}
+[9.437703] (py_rospackage) StdoutLine: {'line': b'running install_lib\n'}
+[9.447303] (py_rospackage) StdoutLine: {'line': b'running install_data\n'}
+[9.448967] (py_rospackage) StdoutLine: {'line': b'running install_egg_info\n'}
+[9.464949] (py_rospackage) StdoutLine: {'line': b"removing '/home/ubuntu/team1-rover/ros2_ws/install/py_rospackage/lib/python3.10/site-packages/py_rospackage-0.0.0-py3.10.egg-info' (and everything under it)\n"}
+[9.468134] (py_rospackage) StdoutLine: {'line': b'Copying ../../build/py_rospackage/py_rospackage.egg-info to /home/ubuntu/team1-rover/ros2_ws/install/py_rospackage/lib/python3.10/site-packages/py_rospackage-0.0.0-py3.10.egg-info\n'}
+[9.477142] (py_rospackage) StdoutLine: {'line': b'running install_scripts\n'}
+[9.533253] (-) TimerEvent: {}
+[9.634770] (-) TimerEvent: {}
+[9.647956] (py_rospackage) StdoutLine: {'line': b'Installing listener script to /home/ubuntu/team1-rover/ros2_ws/install/py_rospackage/lib/py_rospackage\n'}
+[9.649903] (py_rospackage) StdoutLine: {'line': b'Installing talker script to /home/ubuntu/team1-rover/ros2_ws/install/py_rospackage/lib/py_rospackage\n'}
+[9.652369] (py_rospackage) StdoutLine: {'line': b"writing list of installed files to '/home/ubuntu/team1-rover/ros2_ws/build/py_rospackage/install.log'\n"}
+[9.735154] (-) TimerEvent: {}
+[9.836926] (-) TimerEvent: {}
+[9.896950] (py_rospackage) CommandEnded: {'returncode': 0}
+[9.939742] (-) TimerEvent: {}
+[10.038959] (py_rospackage) JobEnded: {'identifier': 'py_rospackage', 'rc': 0}
+[10.046178] (-) TimerEvent: {}
+[10.046985] (-) EventReactorShutdown: {}
